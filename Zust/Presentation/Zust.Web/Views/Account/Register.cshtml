@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+@model RegisterVM
+<div class="profile-authentication-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="profile-authentication-image">
+                    <div class="d-table">
+                        <div class="d-table-cell">
+                            <div class="content-image">
+                                <div class="logo">
+                                    <img src="~/assets/images/logo.png" alt="Zust">
+                                </div>
+                                <div class="vector-image">
+                                    <img src="~/assets/images/vector.png" alt="image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <div class="register-form">
+                    <h2>Register</h2>
+
+                    <form method="post">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" asp-for="Name" class="form-control">
+                            <span asp-validation-for="Name"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input asp-for="Username" class="form-control">
+                            <span asp-validation-for="Username"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Birthday</label>
+                            <input type="date" asp-for="Birthday" class="form-control" placeholder="dd-mm-yyyy"
+                                   min="@(DateTime.Now.AddYears(-150).ToString("dd-MM-yyyy"))" max="@(DateTime.Now.AddYears(-13).ToString("dd-MM-yyyy"))">
+                            <span asp-validation-for="Birthday"></span>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input asp-for="Email" class="form-control">
+                            <span asp-validation-for="Email"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input asp-for="Password" class="form-control">
+                            <span asp-validation-for="Password"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input asp-for="ConfirmPassword" class="form-control">
+                            <span asp-validation-for="ConfirmPassword"></span>
+                        </div>
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="remember-me-wrap">
+                            <p>
+                                <label for="test1">
+                                    When you register, you will have accepted the <button type="button" class="btn btn-transparent text-info p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Privacy
+                                    </button> policy
+                                  
+                                </label>
+                            </p>
+                        </div>
+                        <button type="submit" class="default-btn">Register</button>
+                        <div class="or-text"><span>Or</span></div>
+                        <a asp-action="GoogleLogin" asp-controller="Account" class="google-btn btn"><i class="fa-brands fa-google me-2 fs-4"></i>Register with Google</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+    <div class="home-btn-icon">
+        <a asp-action="Login" asp-controller="Account" class="btn btn-light"><i class="fa-solid fa-right-to-bracket"></i>Log In</a>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Privacy</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="privacy-box-content">
+                   
+
+                        <div class="content">
+                            <h4>Account Privacy</h4>
+                            <p>Praesent sapien massa, convallis a pellentesque nec egestas non nisi. Proin eget tortor risus. Quisque velit nisi pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit eget tincidunt nibh pulvinar a. Quisque velit nisi, pretium ut lacinia in elementum id enim.Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit eget tincidunt nibh pulvinar a. Pellentesque ipsum orci porta dapibus. Cras ultricies ligula sed magna dictum porta. Pellentesque in ipsum id orci porta dapibus.</p>
+                            <p>Curabitur arcu erat accumsan id imperdiet et porttitor at sem. Proin eget tortor risus. Donec rutrum congue leo eget malesuada. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat accumsan id imperdiet et porttitor at sem. Praesent sapien massa convallis a pellentesque nec egestas non nisi. Curabitur aliquet quam id dui posuere.</p>
+                        </div>
+                        <div class="content">
+                            <h4>Terms of Use</h4>
+                            <p>Donec rutrum congue leo eget malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+                            <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Nulla quis lorem ut libero malesuada feugiat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.</p>
+                        </div>
+                        <div class="content">
+                            <h4>Copyright 2021 Policy</h4>
+                            <p>Vivamus suscipit tortor eget felis porttitor volutpat. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Nulla quis lorem ut libero malesuada feugiat.</p>
+                            <p>Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
+                        </div>
+                        <div class="content">
+                            <h4>Safety</h4>
+                            <p>Vivamus suscipit tortor eget felis porttitor volutpat. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.Donec sollicitudin molestie malesuada. Curabitur arcu erat, id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.</p>
+                            <p>Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
+                        </div>
+                        <div class="content">
+                            <h4>Legal and Policies</h4>
+                            <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Proin eget tortor risus. Donec rutrum congue leo eget malesuada. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur aliquet quam id dui posuere blandit.</p>
+                            <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Proin eget tortor risus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Quisque velit nisi, pretium ut lacinia in, elementum id enim.Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta. Pellentesque in ipsum porta.</p>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

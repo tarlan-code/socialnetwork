@@ -1,0 +1,27 @@
+﻿<form method="post" enctype="multipart/form-data" asp-action="CreatePost" asp-controller="Post">
+    <div class="form-group">
+        <textarea  name="Text" class="form-control" placeholder="Write something here..."></textarea>
+    </div>
+   <input id="images" name="Images" multiple type="file" style="display:none;visibility:hidden;" />
+   <input id="videos" name="Videos" multiple type="file" style="display:none;visibility:hidden;" />
+    <ul class="button-group d-flex justify-content-between align-items-center">
+        <li class="photo-btn">
+            <label class="text-danger"  for="images"><i class="flaticon-gallery"></i> Photo</label>
+        </li>
+        <li class="video-btn">
+            <label class="text-success" for="videos" ><i class="flaticon-video"></i> Video</label>
+        </li>
+        <li class="tag-btn">
+            <button id="tagbutton" ><i class="flaticon-tag"></i> Tag Friends</button>
+        </li>
+       
+        <li class="post-btn">
+            <button type="submit">Post</button>
+        </li>
+    </ul>
+    <div id="tagadd" style="visibility:hidden;" class="mt-2">
+        <select id="tagfriends" name="Tags" multiple="multiple" class="w-100">
+        </select>
+    </div>
+</form>
+

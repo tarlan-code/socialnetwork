@@ -1,0 +1,257 @@
+﻿@{
+    ViewData["Title"] = "My Profile";
+}
+
+@model ProfileVM
+
+<div class="content-page-box-area">
+                <div class="my-profile-inner-box">
+                    <div class="profile-cover-image text-center bg-light">
+                        <a href="#" id="profilphoto" value="">
+                <img src='~/assets/zust/users/@(Model.profileInformationVM.BannerImage == "defaultbanner.png" ? "other/defaultbanner.png" : User.Identity.Name+"/"+Model.profileInformationVM.BannerImage)' alt="image" id="bannerImage">
+                        </a>
+                        <label for="banner" class="edit-cover-btn">Edit Banner</label>
+                        <form method="post"  enctype="multipart/form-data">
+	                                <input onchange="this.form.submit()" id="banner" asp-for="bannerImageVM.Image" accept="image/*" style="display:none;visibility:hiden"  />
+	                                <button type="submit" style="display:none;visibility:hidden;"></button>
+                        </form>
+                    </div>
+                    <small class="text-end d-block me-2">Best dimension:1920x350</small>
+
+                    <div class="profile-info-box">
+                        <div class="inner-info-box d-flex justify-content-between align-items-center">
+                            <div class="info-image">
+                                <a href="#">
+                                    <img src='~/assets/zust/users/@(Model.profileInformationVM.ProfilImage == "default.png" ? "other/default.png" : User.Identity.Name+"/"+Model.profileInformationVM.ProfilImage)' alt="image" id="profilimage">
+                                </a>
+                                <div class="icon">
+                                     <label class="btn btn-light rounded" for="imgprofil" id="photo-upluoad-profile"><i class="flaticon-photo-camera"></i></label>
+                                </div>
+                                <form method="post"  enctype="multipart/form-data">
+	                                <input onchange="this.form.submit()" id="imgprofil" asp-for="profileImageVM.ProfilImage" accept="image/*" style="display:none;visibility:hiden"  />
+	                                <button type="submit" style="display:none;visibility:hidden;"></button>
+                                </form>
+
+                            </div>
+                            <div class="info-text ms-3">
+                                <h3><a href="#">@(Model.profileInformationVM.Name+" "+Model.profileInformationVM.Surname)</a></h3>
+                                <span><a href="mailto:@Model.profileInformationVM.Email">@Model.profileInformationVM.Email</a></span>
+                            </div>
+                            <ul class="statistics">
+                                <li>
+                                    <a href="#">
+                                        <span class="item-number">@Model.profileInformationVM.LikeCount</span> 
+                                        <span class="item-text">Likes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="item-number">@Model.profileInformationVM.FriendsCount</span> 
+                                        <span class="item-text">Friends</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="profile-list-tabs">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="timeline-tab" data-bs-toggle="tab" href="#timeline" role="tab" aria-controls="timeline">Timeline</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about">About</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="timeline" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-12">
+                                <div class="news-feed-area">
+                                    <div class="news-feed news-feed-form">
+                                        <h3 class="news-feed-title">Create New Post</h3>
+                                        <partial name="_CreatePost"/>
+                                    </div>
+                                </div>
+                                <div class="load-more-posts-btn">
+                                <a class="load-more-post"><i class="flaticon-loading"></i> Load More Posts</a>
+                            </div>
+                            </div>
+                @await Component.InvokeAsync("Birthday")
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="about" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-12">
+                                <div class="about-personal-information">
+                                    <div class="about-header d-flex justify-content-between align-items-center">
+                                        <div class="title">Personal Information</div>
+
+                                        <div class="dropdown">
+                                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flaticon-menu"></i></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item d-flex align-items-center" asp-action="Index" asp-controller="Settings"><i class="flaticon-edit"></i> Edit Information</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <ul class="information-list">
+                                        <li>
+                                            <span>Birthday:</span> @Model.profileInformationVM.Birthday.ToString("MMM") @Model.profileInformationVM.Birthday.Day, @Model.profileInformationVM.Birthday.Year
+                                        </li>
+                                        <li>
+                                            <span>City:</span> @Model.profileInformationVM.City
+                                        </li>
+                                        <li>
+                                            <span>Country:</span> @Model.profileInformationVM.Country
+                                        </li>
+                                        <li>
+                                            <span>Phone:</span> <a href='tel: @Model.profileInformationVM.PhoneNo'> @Model.profileInformationVM.PhoneNo </a>
+                                        </li>
+                                        <li>
+                                            <span>Gender:</span> @Model.profileInformationVM.Gender
+                                        </li>
+                                        <li>
+                                            <span>Relationship Status:</span> @Model.profileInformationVM.Relation
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-9 col-md-12">
+                                <div class="about-details-information">
+                                    <div class="information-box-content">
+                                        <div class="information-header d-flex justify-content-between align-items-center">
+                                            <div class="title">About Me!</div>
+
+                                            <div class="dropdown">
+                                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flaticon-menu"></i></button>
+                                                <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#aboutmodal"><i class="flaticon-edit"></i> Edit Information</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <div>
+                                                @Html.Raw(Model.profileInformationVM?.About ?? "")
+                                           
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="information-box-content">
+                                        <div class="information-header d-flex justify-content-between align-items-center">
+                                            <div class="title">Education & Work</div>
+
+                                            <div class="dropdown">
+                                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flaticon-menu"></i></button>
+                                                <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#educationmodal" ><i class="flaticon-edit"></i> Edit Information</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="box-content">
+                                                @Html.Raw(Model.profileInformationVM?.EducationOrWorks ?? "")
+                                        </div>
+                                    </div>
+
+                                   
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="aboutmodal" tabindex="-1" aria-labelledby="aboutmodalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">About</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <textarea asp-for="profileInformationVM.About" class="summernote"></textarea>
+                    <button  type="submit" id="SendAbout"  style="visibility:hidden;display:none;" ></button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <label for="SendAbout" class="btn btn-primary">Save changes</label>
+             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Education Of Wor eyni tabel de olsunn summernote elave et-->
+<div class="modal fade" id="educationmodal" tabindex="-1" aria-labelledby="educationmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Education of works</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <textarea asp-for="profileInformationVM.EducationOrWorks" class="summernote"></textarea>
+                    <button  type="submit" id="SendEducation"  style="visibility:hidden;display:none;" ></button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <label for="SendEducation" class="btn btn-primary">Save changes</label>
+             </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+
+}
+
+
+@section scripts{
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script>
+            $('.summernote').summernote({
+                placeholder: 'Your Text',
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+       $(document).ready(function() {
+    $('#tagfriends').select2();
+});
+    </script>
+
+    <script src="~/assets/js/posts.js"></script>
+
+  
+}
+

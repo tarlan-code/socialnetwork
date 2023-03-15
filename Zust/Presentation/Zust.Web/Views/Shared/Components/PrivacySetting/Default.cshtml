@@ -1,0 +1,78 @@
+﻿@model PrivacyVM
+
+
+
+<form class="account-setting-form" asp-action="SetPrivcySetting" asp-controller="Settings">
+    <h3>Privacy Settings</h3>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <label>Who Can See Your Profile?</label>
+                <select class="form-select" asp-for="WhoCanSeeYourProfile">
+                    <option value="true">All</option>
+                    <option value="false">My followers</option>
+                    @if(Model.WhoCanSeeYourProfile is null){
+                        <option value="" selected>No one</option>
+                    }
+                    else{
+                        <option value="">No one</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <label>Who Can Send You Follow Request?</label>
+                <select class="form-select" asp-for="WhoCanSendFollow">
+                    <option value="true">All</option>
+                    <option value="false">Friends of my friends</option>
+                    @if (Model.WhoCanSendFollow is null)
+                    {
+                        <option value="" selected>No one</option>
+                    }
+                    else
+                    {
+                        <option value="">No one</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <label>Who Can See Your Phone Number?</label>
+                <select class="form-select" asp-for="WhoCanSeeYourPhone">
+                    <option value="true">All</option>
+                    <option value="false">My followers</option>
+                    @if (Model.WhoCanSeeYourPhone is null)
+                    {
+                        <option value="" selected>No one</option>
+                    }
+                    else
+                    {
+                        <option value="">No one</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <label>Who Can See Your Birthday?</label>
+                <select class="form-select"  asp-for="WhoCanSeeMyBirthday">
+                    <option value="true">All</option>
+                    <option value="false">My followers</option>
+                    @if (Model.WhoCanSeeMyBirthday is null)
+                    {
+                        <option value="" selected>No one</option>
+                    }
+                    else
+                    {
+                        <option value="">No one</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <button type="submit" class="default-btn">Save Change</button>
+        </div>
+    </div>
+</form>

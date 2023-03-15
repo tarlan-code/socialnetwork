@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Messages";
+}
+<div class="content-page-box-area">
+    <div class="page-banner-box bg-8">
+        <h3>Messenger</h3>
+    </div>
+
+    <div class="live-chat-slides owl-carousel owl-theme">
+      @*  @foreach (ConversationVM user in Model)
+        {
+        <div class="chat-box">
+            <div class="image">
+                    <a href="#"><img src='~/assets/zust/users/@(user.ProfilImage == "default.png" ? "other/default.png" : user.Username+"/"+user.ProfilImage)' class="rounded-circle" height="300" alt="image"></a>
+                <span class="status-online"></span>
+            </div>
+            <h3>
+                <a href="#">@user.Name</a>
+            </h3>
+        </div>
+            
+        }*@
+    
+    </div>
+
+    <div class="live-chat-body" style="display:none;visibility:hidden">
+        <div class="live-chat-header d-flex justify-content-between align-items-center">
+            <div class="live-chat-info">
+                
+            </div>
+
+            <ul class="live-chat-right">
+                <li>
+                    <button class="btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Phone" type="button"><i class="ri-phone-fill"></i></button>
+                </li>
+                <li>
+                    <button class="btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Live" type="button"><i class="ri-live-fill"></i></button>
+                </li>
+                <li>
+                    <a id="delete-message" class="btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="ri-delete-bin-line"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="live-chat-container">
+            <div class="chat-content mb-3" id="chat-area">
+
+            </div>
+
+            <div class="chat-list-footer">
+                <form class="d-flex align-items-center" id="send-message-form" method="post" action="/Messages/SendMessage" enctype="multipart/form-data">
+                    <div class="btn-box d-flex align-items-center me-3">
+                        <label for="attachment" class="file-attachment-btn d-inline-block me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="File Attachment" type="button"><i class="ri-attachment-2"></i></label>
+                    </div>
+                    <input type="file" accept="image/*" id="attachment" name="File" style="display:none;visibility:hidden;" />
+                    <textarea id="mytextarea" type="text" name="Content" class="form-control mt-2" placeholder="Type your message..."></textarea>
+                    <button type="submit" class="send-btn d-inline-block">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://cdn.tiny.cloud/1/xf23h4zp7mxju170jxflbwdz5mxww6ykquby4uhn7vy8p2bm/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: "#mytextarea",
+            plugins: "emoticons",
+            toolbar: "emoticons",
+            toolbar_location: "bottom",
+            width:600,
+            height:150,
+            statusbar:false,
+            menubar: false
+        });
+    </script>
+}

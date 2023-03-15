@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "Requests";
+}
+@model List<RequestVM>
+<div class="content-page-box-area">
+    <div class="page-banner-box bg-4">
+        <h3>FRIEND REQUESTS</h3>
+    </div>
+
+    <div class="friends-inner-box-style d-flex justify-content-between align-items-center margin-top-25">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="friend-requests-tab" data-bs-toggle="tab" href="#friend-requests" role="tab" aria-controls="friend-requests">Friend Requests</a>
+            </li>
+        </ul>
+
+        <div class="friends-search-box">
+            <form>
+                <input type="text" class="input-search" placeholder="Search friends...">
+                <button type="submit"><i class="ri-search-line"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="friend-requests" role="tabpanel">
+            <div class="row justify-content-start request">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-sm-6" id="@item.Username">
+                        <div class="single-friends-card">
+                            <div class="friends-image">
+                                <a href="#">
+                                    <img src='~/assets/zust/users/@(item.BannerImage == "defaultbanner.png" ? "other/defaultbanner.png" : item.Username+"/"+item.BannerImage)' alt="image">
+                                </a>
+                                <div class="icon">
+                                    <a href="/Profiles?username=@item.Username"><i class="flaticon-user"></i></a>
+                                </div>
+                            </div>
+                            <div class="friends-content">
+                                <div class="friends-info d-flex justify-content-between align-items-center">
+                                    <a href="/Profiles?username=@item.Username">
+                                        <img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' alt="image" style="max-width:100px">
+                                    </a>
+                                    <div class="text ms-3">
+                                        <h3><a href="#">@item.Fullname</a></h3>
+                                    </div>
+                                </div>
+                                <ul class="statistics text-start">
+                                
+                                    <li>
+                                        <a href="#">
+                                            <span class="item-number">@item.FriendsCount</span>
+                                            <span class="item-text">Friends</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="button-group d-flex justify-content-between align-items-center">
+                                    <div class="add-friend-btn">
+                                        <a class="btn btn-light btn-sm addrequest" asp-action="Confirm" asp-controller="Requests" asp-route-username="@item.Username">Add Friend</a>
+                                    </div>
+                                    <div class="send-message-btn">
+                                        <a asp-action="RemoveFriend" asp-controller="Requests" asp-route-username="@item.Username" class="btn btn-light btn-sm removerequest">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+            <div class="load-more-posts-btn">
+                <a id="loadrequest"><i class="flaticon-loading"></i> Load More</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

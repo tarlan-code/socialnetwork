@@ -1,0 +1,287 @@
+﻿@model HeaderVM   
+    <!-- Start Navbar Area -->
+            <div class="navbar-area">
+                <div class="main-responsive-nav">
+                    <div class="main-responsive-menu">
+                        <div class="responsive-burger-menu d-lg-none d-block">
+                            <span class="top-bar"></span>
+                            <span class="middle-bar"></span>
+                            <span class="bottom-bar"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-navbar">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a asp-controller="Home" asp-action="Index" class="navbar-brand d-flex align-items-center">
+                            <img  src="~/assets/images/logo.png" alt="image">
+                        </a>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div class="navbar-burger-menu m-auto">
+                                <span class="top-bar"></span>
+                                <span class="middle-bar"></span>
+                                <span class="bottom-bar"></span>
+                            </div>
+
+                            <div class="search-box m-auto">
+                    <input id="search-big" type="text" class="input-search search" placeholder="Search...">
+                    <div class="search-users" id="users-search-big">
+                                        
+                                    </div>
+                            </div>
+                            <div class="others-options d-flex align-items-center">
+                                <div class="option-item">
+                                    <a asp-controller="Home" asp-action="Index" class="home-btn"><i class="flaticon-home"></i></a>
+                                </div>
+                                <div class="option-item">
+                                    <div class="dropdown friend-requests-nav-item">
+                                        <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div class="friend-requests-btn">
+                                                <i class="flaticon-user"></i>
+                                                <span id="request-count">@Model.Requests.Count</span>
+                                            </div>
+                                        </a>
+
+                                        <div class="dropdown-menu">
+                                            <div class="friend-requests-header d-flex justify-content-between align-items-center">
+                                                <h3>Friend Requests</h3>
+                                                <i class="flaticon-menu"></i>
+                                            </div>
+
+                                            <div class="friend-requests-body" data-simplebar>
+                                                @foreach (RequestVM item in Model.Requests)
+                                                {
+                                                <div class="item d-flex align-items-center request-item">
+                                                    <div class="figure">
+                                                <a asp-controller="Profiles" asp-route-username="@item.Username"><img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' class="rounded-circle" alt="image"></a>
+                                                    </div>
+
+                                                    <div class="content d-flex justify-content-between align-items-center">
+                                                        <div class="text">
+                                                    <h4><a asp-controller="Profiles" asp-route-username="@item.Username">@item.Fullname</a></h4>
+                                                            <span>@item.FriendsCount Friends</span>
+                                                        </div>
+                                                        <div class="btn-box d-flex align-items-center">
+                                                    <a class="delete-btn d-inline-block me-2 delete-request" title="Delete" asp-action="RemoveFriend" asp-controller="Requests" asp-route-username="@item.Username"><i class="ri-close-line"></i></a>
+
+                                                    <a class="confirm-btn d-inline-block confirm-request" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirm" asp-action="Confirm" asp-controller="Requests" asp-route-username="@item.Username"><i class="ri-check-line"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    
+                                                }
+                                                
+                                                <div class="view-all-requests-btn">
+                                                    <a asp-controller="Requests" class="default-btn">View All Requests</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="option-item">
+                                    <div class="dropdown notifications-nav-item">
+                                        <a asp-action="Read" asp-controller="Notifications" id="read-notfs" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                            <div class="notifications-btn">
+                                                <i class="flaticon-bell"></i>
+                                                  <span id="notf-count">@Model.Notifications.Count</span>
+                                            </div>
+                                        </a>
+
+                                        <div class="dropdown-menu">
+                                            <div class="notifications-header d-flex justify-content-between align-items-center">
+                                                <h3>Notifications</h3>
+                                                <i class="flaticon-menu"></i>
+                                            </div>
+                                            <div class="notifications-body" data-simplebar>
+                                                @foreach (NotificationVM item in Model.Notifications)
+                                                {
+                                                <div class="item d-flex justify-content-between align-items-center">
+                                                    <div class="figure">
+                                                <a href="#"><img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' class="rounded-circle" alt="image"></a>
+                                                    </div>
+                                                    <div class="text">
+                                                        <h4><a asp-controller="Profiles" asp-route-username="@item.Username">@item.Fullname</a></h4>
+                                                        <span>@item.Title</span>
+                                                        <span class="main-color">@item.Date Ago</span>
+                                                    </div>
+                                                </div>
+                                                    
+                                                }
+                                               
+                                                <div class="view-all-notifications-btn">
+                                                    <a asp-action="Index" asp-controller="Notifications" class="default-btn">View All Notifications</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="option-item">
+                                    <div class="dropdown profile-nav-item">
+                            <a  class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div class="menu-profile">
+                                    <img src='~/assets/zust/users/@(Model.ProfilImage == "default.png" ? "other/default.png" : User.Identity.Name +"/"+Model.ProfilImage)' class="rounded-circle" alt="image">
+                                                <span class="name">@User.Identity.Name</span>
+                                                <span class="status-online"></span>
+                                            </div>
+                                        </a>
+
+                                        <div class="dropdown-menu">
+                                            <div class="profile-header">
+                                                <h3>@Model.Fullname</h3>
+                                                <a href="mailto:@Model.Email">@Model.Email</a>
+                                            </div>
+                                            <ul class="profile-body">
+                                                <li><i class="flaticon-user"></i> <a asp-action="Index" asp-controller="Profiles" asp-route-username="@User.Identity.Name" >My Profile</a></li>
+                                                <li><i class="flaticon-settings"></i> <a asp-action="Index" asp-controller="Settings">Setting</a></li>
+                                                <li><i class="flaticon-privacy"></i> <a asp-action="Index" asp-controller="Privacy">Privacy</a></li>
+                                                <li><i class="flaticon-information"></i> <a asp-action="Index" asp-controller="Support">Help & Support</a></li>
+                                                <li><i class="flaticon-logout"></i> <a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <div class="others-option-for-responsive">
+                    <div class="container">
+                        <div class="dot-menu">
+                            <div class="inner">
+                                <div class="circle circle-one"></div>
+                                <div class="circle circle-two"></div>
+                                <div class="circle circle-three"></div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="option-inner">
+                                <div class="others-options d-flex align-items-center">
+                                    <div class="option-item">
+                                        <a asp-controller="Home" asp-action="Index" class="home-btn"><i class="flaticon-home"></i></a>
+                                    </div>
+                                    <div class="option-item">
+                                        <div class="dropdown friend-requests-nav-item">
+                                            <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div class="friend-requests-btn">
+                                                    <i class="flaticon-user"></i>
+                                        <span id="request-count">@Model.Requests.Count</span>
+                                                </div>
+                                            </a>
+
+                                            <div class="dropdown-menu">
+                                                <div class="friend-requests-header d-flex justify-content-between align-items-center">
+                                                    <h3>Friend Requests</h3>
+                                                    <i class="flaticon-menu"></i>
+                                                </div>
+
+                                                <div class="friend-requests-body">
+                                        @foreach (RequestVM item in Model.Requests)
+                                        {
+                                            
+                                                    <div class="item d-flex align-items-center">
+                                                        <div class="figure">
+                                                             <a asp-controller="Profiles" asp-route-username="@item.Username"><img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' class="rounded-circle" alt="image"></a>
+
+                                                        </div>
+
+                                                        <div class="content d-flex justify-content-between align-items-center">
+                                                            <div class="text">
+                                                              <h4><a asp-controller="Profiles" asp-route-username="@item.Username">@item.Fullname</a></h4>
+                                                              <span>@item.FriendsCount Friends</span>
+                                                            </div>
+                                                            <div class="btn-box d-flex align-items-center">
+                                                                <a class="delete-btn d-inline-block me-2 delete-request" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" asp-action="RemoveFriend" asp-controller="Requests" asp-route-username="@item.Username"><i class="ri-close-line"></i></a>
+
+                                                                 <a class="confirm-btn d-inline-block confirm-request" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirm" asp-action="Confirm" asp-controller="Requests" asp-route-username="@item.Username"><i class="ri-check-line"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                        }
+                                                    <div class="view-all-requests-btn">
+                                                         <a asp-controller="Requests" class="default-btn">View All Requests</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="option-item">
+                                        <div class="dropdown notifications-nav-item">
+                                            <a asp-action="Read" asp-controller="Notifications" id="read-notfs" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div class="notifications-btn">
+                                                    <i class="flaticon-bell"></i>
+                                                  <span id="notf-count">@Model.Notifications.Count</span>
+                                                </div>
+                                            </a>
+
+                                            <div class="dropdown-menu">
+                                                <div class="notifications-header d-flex justify-content-between align-items-center">
+                                                    <h3>Notifications</h3>
+                                                    <i class="flaticon-menu"></i>
+                                                </div>
+                                                <div class="notifications-body">
+                                                    @foreach (NotificationVM item in Model.Notifications)
+                                                    {
+                                                        <div class="item d-flex justify-content-between align-items-center">
+                                                            <div class="figure">
+                                                                <a href="#"><img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' class="rounded-circle" alt="image"></a>
+                                                            </div>
+                                                            <div class="text">
+                                                                <h4><a asp-controller="Profiles" asp-route-username="@item.Username">@item.Fullname</a></h4>
+                                                                <span>@item.Title</span>
+                                                                <span class="main-color">@item.Date Ago</span>
+                                                            </div>
+                                                        </div>
+
+                                                         }
+                                                    <div class="view-all-notifications-btn">
+                                                        <a asp-action="Index" asp-controller="Notifications" class="default-btn">View All Notifications</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="option-item">
+                                        <div class="dropdown profile-nav-item">
+                                            <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div class="menu-profile">
+                                        <img src='~/assets/zust/users/@(Model.ProfilImage == "default.png" ? "other/default.png" : User.Identity.Name +"/"+Model.ProfilImage)' class="rounded-circle" alt="image">
+
+                                                    <span class="name">@User.Identity.Name </span>
+                                                    <span class="status-online"></span>
+                                                </div>
+                                            </a>
+
+                                            <div class="dropdown-menu">
+                                                <div class="profile-header">
+                                                    <h3>@Model.Fullname</h3>
+                                                    <a href="mailto:@Model.Email">@Model.Email</a>
+                                                </div>
+                                                <ul class="profile-body">
+                                                    <li><i class="flaticon-user"></i> <a asp-action="Index" asp-controller="Profiles" >My Profile</a></li>
+                                                    <li><i class="flaticon-settings"></i> <a asp-action="Index" asp-controller="Settings">Setting</a></li>
+                                                    <li><i class="flaticon-privacy"></i> <a asp-action="Index" asp-controller="Privacy">Privacy</a></li>
+                                                    <li><i class="flaticon-information"></i> <a asp-action="Index" asp-controller="Support">Help & Support</a></li>
+                                                    <li><i class="flaticon-logout"></i> <a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="option-item">
+                                        <div class="search-box">
+                                        <input id="search-mobile" type="text" class="input-search search" placeholder="Search...">
+                                <div class="search-users" id="users-search-mobile">
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Navbar Area -->

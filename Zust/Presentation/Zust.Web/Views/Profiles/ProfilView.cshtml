@@ -1,0 +1,177 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+}
+
+@model ProfileVM
+
+<div class="content-page-box-area">
+                <div class="my-profile-inner-box">
+                    <div class="profile-cover-image text-center bg-light">
+            <a href="Profiles?=@Model.profileInformationVM.Username" id="profilphoto" value="@Model.profileInformationVM.Username">
+                <img src='~/assets/zust/users/@(Model.profileInformationVM?.BannerImage == "defaultbanner.png" ? "other/defaultbanner.png" : Model.profileInformationVM.Username+"/"+Model.profileInformationVM.BannerImage)' alt="image" id="bannerImage">
+                        </a>
+                    </div>
+                    <div class="profile-info-box">
+                        <div class="inner-info-box d-flex justify-content-between align-items-center">
+                            <div class="info-image">
+                                <a href="#">
+                                    <img src='~/assets/zust/users/@(Model.profileInformationVM.ProfilImage == "default.png" ? "other/default.png" : Model.profileInformationVM.Username+"/"+Model.profileInformationVM.ProfilImage)' alt="image" id="profilimage">
+                                </a>
+                            </div>
+                            <div class="info-text ms-3">
+                                <h3><a href="#">@(Model.profileInformationVM.Name+" "+Model.profileInformationVM.Surname)</a></h3>
+                                <span><a href="mailto:@Model.profileInformationVM.Email">@Model.profileInformationVM.Email</a></span>
+                                <div class="add-friend-btn mt-3" id="friendbutton">
+                                     @if(Model.friendCheckVM.IsFriend){
+                            <a id="removefriend" asp-controller="Requests" asp-action="RemoveFriend" asp-route-username="@Model.profileInformationVM.Username" class="btn btn-outline-primary">Remove Friend</a>
+                                     }
+                                     else{
+                                         if(Model.friendCheckVM.CheckFriend is null){
+                                             <a id="addfriend" asp-controller="Requests" asp-action="AddFriend" asp-route-username="@Model.profileInformationVM.Username" class="btn btn-outline-primary">Add Friend</a>
+                                         }
+                                         else if(Model.friendCheckVM.CheckFriend == false){
+                                <a id="removefriend" asp-controller="Requests" asp-action="RemoveFriend" asp-route-username="@Model.profileInformationVM.Username" class="btn btn-outline-primary">Request Send</a>
+                                         }
+                                         else if(Model.friendCheckVM.CheckFriend == true){
+                                <a id="confirmfriendrequest" asp-controller="Requests" asp-action="Confirm" asp-route-username="@Model.profileInformationVM.Username" class="btn btn-outline-primary"><i class="ri-check-line">Confirm</i></a>
+                                <a id="removerequest" asp-controller="Requests" asp-action="RemoveFriend" asp-route-username="@Model.profileInformationVM.Username" class="btn btn-outline-primary"><i class="ri-close-line"></i></a>
+
+                                         }
+                                     }
+                                </div>
+                            </div>
+                            <ul class="statistics">
+                                <li>
+                                    <a href="#">
+                                        <span class="item-number">@Model.profileInformationVM.LikeCount</span> 
+                                        <span class="item-text">Likes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="item-number">@Model.profileInformationVM.FriendsCount</span> 
+                                        <span class="item-text">Friends</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="profile-list-tabs">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="timeline-tab" data-bs-toggle="tab" href="#timeline" role="tab" aria-controls="timeline">Timeline</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about">About</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="timeline" role="tabpanel">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-10">
+                                <div class="news-feed-area">
+                                    
+                                   
+                                </div>
+                    <div class="load-more-posts-btn">
+                        <a class="load-more-post"><i class="flaticon-loading"></i> Load More Posts</a>
+                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="about" role="tabpanel">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-12">
+                                <div class="about-personal-information">
+                                    <div class="about-header d-flex justify-content-between align-items-center">
+                                        <div class="title">Personal Information</div>
+                                    </div>
+
+                                    <ul class="information-list">
+                                        <li>
+                                            <span>Birthday:</span> @Model.profileInformationVM.Birthday.ToString("MMM") @Model.profileInformationVM.Birthday.Day, @Model.profileInformationVM.Birthday.Year
+                                        </li>
+                                        <li>
+                                            <span>City:</span> @Model.profileInformationVM.City
+                                        </li>
+                                        <li>
+                                            <span>Country:</span> @Model.profileInformationVM.Country
+                                        </li>
+                                        <li>
+                                            <span>Phone:</span> <a href='tel: @Model.profileInformationVM.PhoneNo'> @Model.profileInformationVM.PhoneNo </a>
+                                        </li>
+                                        <li>
+                                            <span>Gender:</span> @Model.profileInformationVM.Gender
+                                        </li>
+                                        <li>
+                                            <span>Relationship Status:</span> @Model.profileInformationVM.Relation
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-9 col-md-12">
+                                <div class="about-details-information">
+                                    <div class="information-box-content">
+                                        <div class="information-header d-flex justify-content-between align-items-center">
+                                            <div class="title">About Me!</div>
+                                        </div>
+                                        <div class="content">
+                                            <div>
+                                                @Html.Raw(Model.profileInformationVM?.About ?? "")
+                                           
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="information-box-content">
+                                        <div class="information-header d-flex justify-content-between align-items-center">
+                                            <div class="title">Education & Work</div>
+                                        </div>
+                                        <div class="box-content">
+                                                @Html.Raw(Model.profileInformationVM?.EducationOrWorks ?? "")
+                                        </div>
+                                    </div>
+
+                                   
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+@section css{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+}
+
+
+    @section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tagfriends').select2();
+        });
+    </script>
+
+    <script src="~/assets/js/posts.js"></script>
+
+
+}
+
+

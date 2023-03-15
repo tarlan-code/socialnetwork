@@ -1,0 +1,57 @@
+﻿@model BirthdayPageVM
+
+<div class="col-lg-3 col-md-12">
+    <aside class="widget-area">
+        <div class="widget widget-birthday">
+            <div class="birthday-title d-flex justify-content-between align-items-center">
+                <h3>Today Birthdays</h3>
+                <span><a asp-controller="Birthdays">See All</a></span>
+            </div>
+            @if (Model.ToDayBirthDays is not null)
+            {
+                foreach (var item in Model.ToDayBirthDays)
+                {
+                    <article class="item">
+                        <a asp-controller="Profiles" asp-route-username="@item.Username" class="thumb">
+                            <img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' class="rounded-circle" width="70">
+                        </a>
+
+                        <div class="info">
+                            <h4 class="title">
+                                <a asp-controller="Profiles" asp-route-username="@item.Username">@item.Fullname</a>
+                            </h4>
+                            <span>Today</span>
+                        </div>
+                    </article>
+
+                }
+            }
+
+
+            <div class="birthday-title d-flex justify-content-between align-items-center">
+                <h3>Coming Birthdays</h3>
+                <span><a asp-controller="Birthdays">See All</a></span>
+            </div>
+            @if (Model.CommingBirthdays is not null)
+            {
+                foreach (var item in Model.CommingBirthdays)
+                {
+                    <article class="item">
+                        <a asp-controller="Profiles" asp-route-username="@item.Username" class="thumb">
+                            <img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' class="rounded-circle" width="70">
+                        </a>
+
+                        <div class="info">
+                            <h4 class="title">
+                                <a asp-controller="Profiles" asp-route-username="@item.Username">@item.Fullname</a>
+                            </h4>
+                            <span>@item.Birthday.Day &nbsp;@item.Birthday.ToString("MMMM")</span>
+                        </div>
+                    </article>
+
+                }
+            }
+        </div>
+        
+    </aside>
+</div>

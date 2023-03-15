@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Birthdays";
+}
+
+@model BirthdayPageVM
+<div class="content-page-box-area">
+    <div class="page-banner-box bg-9">
+        <h3>Birthday</h3>
+    </div>
+
+    <div class="all-birthday-body">
+        <div class="birthday-header">
+            <h3>Today Birthday</h3>
+        </div>
+
+        <div class="birthday-send-box">
+            @if(Model.ToDayBirthDays is not null){
+                foreach (var item in Model.ToDayBirthDays)
+                {
+                    <div class="send-item">
+                        <a asp-controller="Profiles" asp-route-username="@item.Username"><img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' class="rounded-circle" alt="image"></a>
+
+                <div class="send-content">
+                    <h3>
+                                <a asp-controller="Profiles" asp-route-username="@item.Username">@item.Fullname</a>
+                    </h3>
+                    <span>@item.Birthday.Day @item.Birthday.ToString("MMMM"), @item.Birthday.Year</span>
+
+                    <form class="d-flex align-items-center">
+                        <input type="text" class="form-control" placeholder="Write someting">
+                        <button type="submit" class="send-btn d-inline-block">Send</button>
+                    </form>
+                </div>
+            </div>
+                
+                }
+            }
+        </div>
+
+        <div class="birthday-list-box">
+            <div class="birthday-header">
+                <h3>Upcoming Birthday</h3>
+            </div>
+            @if(Model.CommingBirthdays is not null){
+                foreach (var item in Model.CommingBirthdays)
+                {
+                    
+            <div class="list-item">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="list-content">
+                                    <a asp-controller="Profiles" asp-route-username="@item.Username"><img src='~/assets/zust/users/@(item.ProfilImage == "default.png" ? "other/default.png" : item.Username+"/"+item.ProfilImage)' class="rounded-circle" alt="image"></a>
+                            <div class="text">
+                                <h3>
+                                            <a asp-controller="Profiles" asp-route-username="@item.Username">@item.Fullname</a>
+                                </h3>
+                                        <span>@item.Birthday.Day @item.Birthday.ToString("MMMM"), @item.Birthday.Year</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+                }
+            }
+         
+        </div>
+
+       
+    </div>
+</div>
+ 

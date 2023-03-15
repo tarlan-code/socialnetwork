@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Videos";
+}
+@model List<VideoVM>
+<div class="content-page-box-area">
+    <div class="page-banner-box bg-10">
+        <h3>Video Discover</h3>
+    </div>
+
+    <div class="row">
+        @foreach (VideoVM video in Model)
+        {
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-video-card">
+                    <div class="video-info">
+                        <a asp-controller="Profiles" asp-route-username="@video.Username" ><img src='~/assets/zust/users/@(video.ProfilImage == "default.png" ? "other/default.png" : video.Username+"/"+video.ProfilImage)' class="rounded-circle" alt="image"></a>
+                        <div class="text">
+                            <h3>
+                                <a asp-controller="Profiles" asp-route-username="@video.Username">@video.Fullname</a>
+                            </h3>
+                            <span>Published: @video.Date.Day @video.Date.ToString("MMMM"), @video.Date.Year</span>
+                        </div>
+                    </div>
+                    <div class="video-image">
+                        <video  src="~/assets/zust/users/@video.Username/medias/@video.Media" alt="image" ></video>
+
+                        <div class="icon">
+                            <a href="~/assets/zust/users/@video.Username/medias/@video.Media" class="video-btn popup-youtube">
+                                <i class="flaticon-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <ul class="meta-wrap">
+                        <li class="react">
+                            <a href="#"><i class="ri-heart-line"></i><span>@video.LikeCount</span></a>
+                        </li>
+                        <li class="comment">
+                            <a href="#"><i class="ri-chat-3-line"></i><span>@video.CommentCount</span></a>
+                        </li>
+                        <li class="share">
+                            <a href="#"><i class="ri-share-line"></i><span>@video.SharedCount</span></a>
+                        </li>
+                    </ul>
+                    <form class="video-form" asp-action="AddComment" asp-controller="Comment" method="post">
+                        <input  name="Text" type="text" class="input-search" placeholder="Write comment">
+                        <input name="PostId" style="display:none;visibility:hidden" value="@video.PostId">
+                        <button type="submit"><i class="ri-send-plane-line"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/assets/js/notify.min.js"></script>
+}

@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Settings";
+}
+
+@model SettingInfoVM
+
+<div class="content-page-box-area">
+    <div class="page-banner-box">
+        <h3>Account Setting</h3>
+    </div>
+    <div class="account-setting-list-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="profile-information-tab" data-bs-toggle="tab" href="#profile-information" role="tab" aria-controls="profile-information">Profile Information</a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" id="privacy-tab" data-bs-toggle="tab" href="#privacy" role="tab" aria-controls="privacy">Privacy</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" id="close-account-tab" data-bs-toggle="tab" href="#close-account" role="tab" aria-controls="close-account">Close Account</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="profile-information" role="tabpanel">
+            <form class="account-setting-form" method="post">
+                <h3>Profile Information</h3>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Name">
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input asp-for=Surname class="form-control" placeholder="Surname">
+                            <span class="text-danger" asp-validation-for="Surname"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input asp-for="Email" class="form-control" placeholder="Email">
+                            <small class="text-secondary fw-light fst-italic">Note:If the e-mail changes the email will appear here after confirming</small>
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input asp-for="Username" class="form-control" placeholder="Username">
+                            <span class="text-danger"  asp-validation-for="Username"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input asp-for="Birthday" type="date" class="form-control" placeholder="mm-dd-yyyy" min="@(DateTime.Now.AddYears(-150).ToString("yyyy-MM-dd"))" max="@(DateTime.Now.AddYears(-13).ToString("yyyy-MM-dd"))">
+                            <span class="text-danger" asp-validation-for="Birthday"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Phone No:</label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="Phone no">
+                            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select class="form-select" asp-items="ViewBag.Genders" asp-for="GenderId">
+                                <option selected="1" value="">Gender</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="GenderId"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Relation Status</label>
+                            <select class="form-select" asp-items="@ViewBag.Relations" asp-for="RelationId">
+                                <option selected="1" value="">Relation Status</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="RelationId"></span>
+
+                        </div>
+                    </div>
+                   
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select class="form-select" asp-items="@ViewBag.Country" id="countries" asp-for="CountryId">
+                                <option selected="1" value="">Country</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="CountryId"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>City</label>
+                            <select class="form-select" id="cities" asp-for="CityId" asp-items="@ViewBag.Cities">
+                                <option selected="1" value="">City</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="CityId"></span>
+
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12 col-md-12">
+                        <button type="submit" class="default-btn">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="tab-pane fade" id="privacy" role="tabpanel">
+            @await Component.InvokeAsync("PrivacySetting")
+        </div>
+
+
+        <div class="tab-pane fade" id="close-account" role="tabpanel">
+            <partial name="_DeleteAccountPartial" model="null"/>
+        </div>
+    </div>
+</div>

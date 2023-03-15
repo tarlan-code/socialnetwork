@@ -1,0 +1,123 @@
+﻿
+
+.search-users{
+    position: absolute;
+    background-color: rgb(54,68,217);
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom-left-radius: 3%;
+    border-bottom-right-radius: 3%;
+}
+
+.search-users > div > span > a:hover {
+        color: black;
+    }
+
+
+#photo-upluoad-profile>i{
+    cursor:pointer!important;
+}
+
+#photo-upluoad-profile:hover {
+    color: rgb(54,68,217);
+}
+
+
+
+#bannerImage{
+    display: block;
+    max-width: 1130px;
+    max-height: 206px;
+    height: auto;
+    width: auto;
+}
+
+.player>div{
+    margin:auto;
+}
+
+.comment-button{
+    position:absolute;
+}
+
+.comment-react>li{
+    cursor:pointer;
+}
+
+.more-comments {
+    text-align: center;
+}
+.more-comments>a
+{
+    font-size: 14px;
+    color: var(--main-color);
+}
+
+.chat-content {
+    float: left;
+    width: 760px;
+    overflow-y: auto;
+    max-height: 600px;
+    height:auto;
+    min-height:300px;
+}
+
+.time{
+    font-size: .6rem!important;
+}
+
+
+.video-image{
+    width:220px!important;
+    height:140px!important;
+}
+
+.video-image > video {
+    max-width: -webkit-fill-available;
+    max-height: -webkit-fill-available;
+}
+
+@media (min-width: 325px) {
+    #profilimage {
+        width: 80px;
+        max-height: 80px;
+        height:auto;
+    }
+}
+
+
+@media (min-width: 576px) {
+   #profilimage{
+    width:150px;
+    max-height:150px;
+    height:auto;
+}
+}
+
+
+@media (min-width: 768px) {
+    #profilimage {
+        width: 200px;
+        max-height: 200px;
+        height:auto;
+    }
+}
+
+@media (min-width: 992px) {
+    #profilimage {
+        width: 250px;
+        max-height: 250px;
+        height:auto;
+    }
+}
+
+@media (min-width: 1200px) {
+    #profilimage {
+        width: 300px;
+        max-height: 300px;
+        height:auto;
+    }
+}

@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Events";
+}
+
+@model EventVM
+<div class="content-page-box-area">
+    <div class="page-banner-box bg-7">
+        <h3>Events</h3>
+    </div>
+
+    <div class="events-inner-box-style d-flex justify-content-between align-items-center">
+        <div class="title">
+            <h3>All Events</h3>
+        </div>
+        <div class="events-btn">
+            <a href="#createvent" class="default-btn">Add New Event</a>
+        </div>
+        <div class="events-search-box">
+            <form>
+                <input type="text" class="input-search" id="search-event-input" placeholder="Search events...">
+                <button type="submit" id="search-event"><i class="ri-search-line"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row" id="events">
+        
+    </div>
+    <div class="load-more-posts-btn" id="load-more-event">
+        <a  class="load-more-events"><i class="flaticon-loading"></i> Load More Events</a>
+    </div>
+    <form class="events-form" method="post" id="createvent" enctype="multipart/form-data">  
+        <h3>Add New Event</h3>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select class="form-select" asp-items="@ViewBag.Categories" asp-for="EventCategoryId">
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>Event Name</label>
+                    <input type="text" class="form-control" asp-for="Name">
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>Event Location</label>
+                    <input type="text" class="form-control" asp-for="Location">
+                    <span asp-validation-for="Location"></span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>Event Date</label>
+                    <input type="datetime-local" class="form-control" id="datepicker" asp-for="EventDate" min="@(DateTime.Now.AddHours(6).ToString("MM/dd/yyyy H:mm:ss"))">
+                    <span asp-validation-for="EventDate"></span>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label>Event Image</label>
+                    <input type="file" class="form-control" asp-for="Image">
+                    <span asp-validation-for="Image"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+                <button type="submit" class="default-btn">Created Event</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+            @section scripts{
+                <script src="~/assets/js/event.js"></script>
+            }
